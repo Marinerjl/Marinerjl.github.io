@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>English Learning……</title>
+  <style type="text/css">
+    body{margin:0 auto;
+	font-size:18px;
+	width:700px;
+	}
+	header{
+	height:150px;
+	background:rgb(190,240,250) ;
+	color:white;
+    font-size:4em;
+	text-align:center;
+	padding-top:1.5rem;
+	text-shadow:rgb(240,190,240) 3px 2px ;
+	}
+	article#menu{
+	 border:1px solid rgb(250,230,250);
+	 height:50px;
+	 text-align:center;
+	 margin-top:20px;
+	}
+	article#content{
+	 border:1px solid rgb(250,230,250);
+	 text-align:center;
+	 margin-top:20px;
+	}
+	article span{
+	border:3px outset;
+	background-color:rgb(190,240,250);
+	border-radius:10px;
+	padding:5px;
+	color:rgb(0,0,0);
+	margin:20px;
+	cursor:pointer;
+	}
+	article#popwindow{
+	 border:2px outset rgb(190,240,250) ;
+	 position:absolute;
+	 left:330px;
+	 top:250px;
+	 width:500px;
+	 height:400px;
+	 text-align:center;
+	 z-index:4;
+	 display:none;
+	 background-color:white;
+	}
+	article#titleBar01{
+	  background-color:rgb(240,190,240);
+	  color:white;
+	  height:2em; 
+	  text-align:center;
+	  padding-top:0.5em;
+	}
+	article#titleBar02{
+	  background-color:rgb(240,190,240);
+	  color:white;
+	  height:2em; 
+	  text-align:center;
+	  padding-top:0.5em;
+	}
+	 article#popwindow span{
+     font-size:0.7em;
+	 margin-left:2em;
+	 left:100px;
+   }
+   article#showword{
+    margin:0.5em;
+    font-size:1.2em;
+    background-color:rgb(230,250,230);
+    text-align:center;
+   }
+    p{
+	 text-align:center;
+	 background-color:rgb(230,240,250);
+	 cursor:pointer;
+	 margin:0.5em;
+	}
+	 p.ponmouseover{
+	 background-color:rgb(160,220,240);
+	}
+	 p.ponclick{
+	 background-color:rgb(100,200,255);
+	}
+	footer{
+	background:rgb(190,240,250);
+	color:white;
+	text-align:center;
+	height:50px;
+	padding-top:10px;
+	}
+	.onmouseover{
+	 border:3px outset;
+	 background-color:rgb(240,190,240);
+	}
+	 .onclick{
+	 border:3px  inset;
+	 background-color:rgb(210,100,210);
+	 color:rgb(100,250,100);
+	}
+	h1{
+	text-align:center;
+	}
+  </style>
+    <script src="words.js"></script>
+  <script type="text/javascript">
+  <!--
+	var words = {
+		id:20,
+		en:"",
+		soundmark:"",
+		cn:"",
+		getwordById:function(){}
+  };//end of words Object
+  words.getwordById = function(id){
+	this.id = id;
+	var wd = en6[id].split("/");
+	this.en = wd[0];
+	this.soundmark = wd[1];
+	this.cn = wd[2];
+	for (var i=2 ; i < wd.length; i++){
+           this.cn += wd[i] ;
+         }
+  }
+  //-->
+  </script>
+  <script type="text/javascript">
+  <!--
+	window.onload = function(){
+		//实现四个功能的按钮
+		var entocn = document.querySelector("span#entocn");
+		var cntoen = document.querySelector("span#cntoen");
+		var catalog = document.querySelector("span#catalog");
+		var test = document.querySelector("span#test");
+		//弹窗里面的标签
+		var popwindow= document.querySelector("article#popwindow");
+		var titleBar01 = document.querySelector("article#titleBar01");
+		var titleBar02 = document.querySelector("article#titleBar02");
+		var inputDom = document.querySelector("input#word");
+  		var searchDom = document.querySelector("span#search");
+		var closeDom01 = document.querySelector("span#close01");
+		var closeDom02 = document.querySelector("span#close02");
+		var preDom = document.querySelector("span#pre");
+		var nextDom = document.querySelector("span#next");
+		//在按钮上移动
+		entocn.onmouseover = function(){this.className = "onmouseover";};
+		entocn.onmouseout = function(){this.className ="" ;};
+		cntoen.onmouseover = function(){this.className = "onmouseover";};
+		cntoen.onmouseout = function(){this.className ="" ;};
+		catalog.onmouseover = function(){this.className = "onmouseover";};
+		catalog.onmouseout = function(){this.className ="" ;};
+		test.onmouseover = function(){this.className = "onmouseover";};
+		test.onmouseout = function(){this.className ="" ;};
+		search.onmouseover = function(){this.className = "onmouseover";};
+		search.onmouseout = function(){this.className ="" ;};
+		preDom.onmouseover = function(){this.className = "onmouseover";};
+		preDom.onmouseout = function(){this.className ="" ;};
+		nextDom.onmouseover = function(){this.className = "onmouseover";};
+		nextDom.onmouseout = function(){this.className ="" ;};
+		closeDom01.onmouseover = function(){this.className = "onmouseover";}
+		closeDom01.onmouseout = function(){this.className = "";}
+		closeDom02.onmouseover = function(){this.className = "onmouseover";}
+		closeDom02.onmouseout = function(){this.className = "";}
+		//英文翻译中文实现
+		entocn.onclick = function(){
+			this.className = "onclick";
+  			popwindow.style.display = "block";
+			popwindow.style.height = "400px";
+			titleBar01.style.display = "block";
+			titleBar02.style.display = "none";
+			inputDom.value ="";
+			resultDom.textContent = "";
+			var showword = document.querySelector("article#showword");
+			showword.textContent = "";
+			var enDom = document.createElement("p");
+			var soundmarkDom = document.createElement("p");
+			var cnDom = document.createElement("p");
+			searchDom.onclick = function(){
+				this.className = "onclick";
+				showword.textContent = "";
+				for (var i = 0;i < en6.length ;i++ )
+				{
+					words.getwordById(i);
+					if(words.en === inputDom.value ){
+						enDom.textContent = words.en;
+						showword.appendChild(enDom);
+						soundmarkDom.textContent = words.soundmark;
+						showword.appendChild(soundmarkDom);
+						cnDom.textContent = words.cn;
+						showword.appendChild(cnDom);
+  					}
+					if(i==en6.length){
+						enDom.textContent = "本单词书中未查到此单词";
+					}
+				}	
+			}	
+  		}//end of 英翻中
+		cntoen.onclick = function(){
+			this.className = "onclick";
+  			popwindow.style.display = "block";
+			popwindow.style.height = "400px";
+			titleBar01.style.display = "block";
+			titleBar02.style.display = "none";
+			resultDom.textContent = "";
+			var showword = document.querySelector("article#showword");
+			showword.textContent = "";
+			inputDom.value = "";
+			searchDom.onclick = function(){
+				this.className = "onclick";
+				showword.textContent = "";
+				var i = 0;
+  				do{
+  					words.getwordById(i);
+  					var chinese = words.cn; 
+					var p = document.createElement("p");
+					if(chinese.includes(inputDom.value)){
+						p.textContent = en6[i];
+						showword.appendChild(p);
+					}
+					i++;
+  				}while(i<en6.length)
+			}//end of searchDom	
+			
+  		}//end of 中翻英
+		catalog.onclick = function(){
+			this.className = "onclick";
+			var contentDom = document.querySelector("article#content");
+			contentDom.textContent = "";
+			var caidan = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+			for (var i = 0;i<26 ;i++ )
+			{
+				var buttonDom = document.createElement("p");
+				buttonDom.textContent = caidan[i];
+				buttonDom.onmouseover = function(){
+						this.className = "ponmouseover";
+					}
+				buttonDom.onmouseout = function(){
+						this.className = "";
+					}
+				buttonDom.onclick = function(){
+					this.className = "onclick";
+					popwindow.style.display = "block";
+					popwindow.style.height = "700px";
+					titleBar01.style.display = "none";
+					titleBar02.style.display = "block";
+					resultDom.textContent = "";
+					var showword = document.querySelector("article#showword");
+					showword.textContent = "";
+					var count = 0;
+					var thewords = [];
+					for (var j = 0;j<en6.length ;j++ )
+					{
+						words.getwordById(j);
+						var english = words.en;
+						var shou = this.textContent;
+						if(english.search(shou) === 0){
+							thewords.push(en6[j]);
+						}
+						
+					}
+					var start = 0;
+					var end = 10;
+					for (var m = start;m<end ;m++ )
+					{	
+						var p = document.createElement("p");
+						p.textContent = thewords[m];
+						showword.appendChild(p);
+					}
+					preDom.onclick = function(){
+						showword.textContent = "";
+						start = start-10;
+						if(start<=0){
+							start = thewords.length-10;
+						}
+						for (var n = start;n<start+10 ;n++ )
+						{
+							var p = document.createElement("p");
+							p.textContent = thewords[n];
+							showword.appendChild(p);
+						}
+					}
+					nextDom.onclick = function(){
+						showword.textContent = "";
+						start = start+10;
+						if(start>thewords.length-1){
+							start = 0;
+						}
+						for (var n = start;n<start+10 ;n++ )
+						{
+							
+							var p = document.createElement("p");
+							p.textContent = thewords[n];
+							showword.appendChild(p);
+						}
+					}
+				}
+				contentDom.appendChild(buttonDom);
+			}
+		}//end of catalog
+		var resultDom = document.createElement("h1");
+		test.onclick = function(){
+			this.className = "onclick";
+  			popwindow.style.display = "block";
+			popwindow.style.height = "400px";
+			titleBar01.style.display = "none";
+			titleBar02.style.display = "block";
+			preDom.style.visibility ="hidden";
+			nextDom.style.visibility ="hidden";
+			var showword = document.querySelector("article#showword");
+			showword.textContent = "";
+			//随机产生一个单词，让使用者选择其中文意思
+			Random=Math.floor(Math.random()*5496);
+			words.getwordById(Random);
+			var hDom = document.createElement("h1");
+			hDom.textContent = words.en;
+			showword.appendChild(hDom);
+			resultDom.textContent = "";
+			//随机产生一个数，做正确选项的位置
+			var r=Math.floor(Math.random()*4);
+			//生成四个选项
+			for (var i = 0;i<4 ;i++ )
+			{
+				var mybutton = document.createElement("p");
+				mybutton.onmouseover = function(){this.className = "onmouseover";};
+				mybutton.onmouseout = function(){this.className ="" ;};
+				if(r==i){
+					words.getwordById(Random);
+					mybutton.textContent = words.cn;
+					mybutton.onclick =function(){
+						resultDom.textContent = "you are right";
+						//score.textContent=parseInt(score.textContent)+10;
+						popwindow.appendChild(resultDom);
+					}
+				}else{
+					var rand = getRandom();
+					if(rand == Random){
+						rand = getRandom();
+					}
+					words.getwordById(rand);
+					mybutton.textContent = words.cn;
+					mybutton.onclick =function(){
+						resultDom.textContent = "you are wrong";
+						//score.textContent=parseInt(score.textContent)-10;
+						popwindow.appendChild(resultDom);
+					}
+				}
+				showword.appendChild(mybutton);
+			}
+		}
+		function getRandom(){
+			var r = Math.floor(Math.random()*5496);
+			return r;
+		}//产生随机数
+		closeDom01.onclick = function(){
+			this.className = "onclick";
+			if(popwindow.style.display = "block"){
+				popwindow.style.display = "none";
+			}
+		}//end of closeDom01.onclick
+		closeDom02.onclick = function(){
+			this.className = "onclick";
+			if(popwindow.style.display = "block"){
+				popwindow.style.display = "none";
+			}
+		}//end of closeDom02.onclick
+	}//end of window.onload
+  //-->
+  </script>
+ </head>
+ <body>
+  <header> 
+	六级单词书
+  </header>
+  <section>
+    <article id = "menu">
+		<span id = "entocn">英翻中</span>
+		<span id = "cntoen">中翻英</span>
+		<span id = "catalog">目     录</span>
+		<span id = "test">测      试</span>
+	</article>
+	<article id = "popwindow">
+		<article id="titleBar01" >
+			<input id="word" type="text">
+			<span id="search">搜索</span>
+			<span id="close01">关闭</span>
+		</article>
+		<article id="titleBar02">
+			<span id="pre">上一页</span>
+			<span id="next">下一页</span>
+			<span id="close02">关闭</span>
+		</article>
+		<article id="showword" ></article>
+	</article>
+	<article id="content">
+	<p>学英语是通向世界的窗口</p>
+	<p>我们身处于国际化进程不断加快的时代，</p>
+	<p>英语作为国际通用语言是学生走向世界的基础技能。</p>
+	<p>学习英语不仅可以丰富自己的知识面，</p>
+	<p>可以拓宽视野、可以提高个人的优势。</p>
+	<p>英语的应用无处不在，</p>
+	<p>我们已经身处一个改革开放的新时代，</p>
+	<p>掌握好英语才能让你在改革浪潮中披荆斩棘勇往直前，</p>
+	<p>让我们一起努力学习英语吧！</p>
+	<p>                          </p>
+	<p>本六级单词小项目实现学习单词部分需求：</p>
+	<p>1.中文翻译英文</p>
+	<p>2.英文翻译中文</p>
+	<p>3.查阅单词目录</p>
+	<p>4.对单词的测试</p>
+	</article>
+  </section>
+  <footer>
+   一起卷卷卷
+  </footer>
+ </body>
+</html>
